@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import Homepageafter from "./components/HomePageAfter";
 import Link from "next/link";
+import React from "react";
+
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

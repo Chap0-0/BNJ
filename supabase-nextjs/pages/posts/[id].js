@@ -1,15 +1,15 @@
-import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
-import { React, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "../api/api";
 import Header from "../components/Header";
 import Comment from "../components/Comment";
 import Nav from "../components/Nav";
+import React from "react";
 
 const PostRew = () => {
   const router = useRouter();
-  const supabase = useSupabaseClient();
   const [postItem, setPostItem] = useState(null);
+  const [creator, setCreator] = useState(null);
 
   useEffect(() => {
     const loadPostItem = async () => {
@@ -22,15 +22,29 @@ const PostRew = () => {
         console.error(error);
       } else {
         setPostItem(data);
+        const { data: creatorData, error: creatorError } = await supabase
+          .from("profiles")
+          .select("username, avatar_url")
+          .eq("id", data.user_id)
+          .single();
+        if (creatorError) {
+          console.error(creatorError);
+        } else {
+          setCreator(creatorData);
+        }
       }
     };
 
+    const interval = setInterval(() => {
+      loadPostItem();
+    }, 2000);
     loadPostItem();
+    return () => clearInterval(interval);
   }, [router.query.id]);
 
   return (
     <div>
-      {postItem ? (
+      {postItem && creator ? (
         <div>
           <Header />
           <Nav />
@@ -49,16 +63,28 @@ const PostRew = () => {
                 <span></span>
               )}
 
-              <h1
-                className="text-3xl font-bold"
-                style={{ wordWrap: "break-word" }}
-              >
+              <h1 className="text-3xl font-bold break-words">
                 {postItem.title}
               </h1>
-              <p className="text-1xl text-gray-600">{postItem.created_at}</p>
-              <p className="text-base mt-4 break-words">
-                {postItem.description}
-              </p>
+              <div className="mt-4 flex items-center">
+                <img
+                  className="w-16 h-16 rounded-full mr-4 object-cover"
+                  src={
+                    "https://tcdzmtzjxlljrjivxvmp.supabase.co/storage/v1/object/public/avatars/" +
+                    creator.avatar_url
+                  }
+                  alt={creator.username}
+                />
+                <p className="text-gray-900 leading-none break-words">
+                  {creator.username}
+                </p>
+              </div>
+              <div className="text-sm">
+                <p className="text-1xl text-gray-600">{postItem.created_at}</p>
+                <p className="text-base mt-4 break-words">
+                  {postItem.description}
+                </p>
+              </div>
             </div>
             <Comment postItem={postItem} />
           </div>

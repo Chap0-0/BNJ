@@ -2,12 +2,14 @@ import { useState } from "react";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import Homepageafter from "./components/HomePageAfter";
 import Link from "next/link";
-
+import React from "react";
+import { useRouter } from "next/router";
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const session = useSession();
   const supabase = useSupabaseClient();
+  const router = useRouter();
 
   const handleRegister = async (event) => {
     event.preventDefault();
@@ -21,6 +23,7 @@ export default function Register() {
       if (error) throw error;
 
       alert("Регистрация прошла успешно!");
+      router.push("/account"); // перенаправление на страницу account
     } catch (error) {
       alert(error.error_description || error.message);
     }

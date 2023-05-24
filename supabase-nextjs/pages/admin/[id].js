@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
-import Avatar from "../components/Avatar";
-import Homepage from "@/pages/components/HomePage";
 import { supabase } from "../api/api";
 import { useRouter } from "next/router";
-import Admin from "./adminPage";
 import Header from "../components/Header";
+import React from "react";
 
 export default function Profile() {
   const router = useRouter();

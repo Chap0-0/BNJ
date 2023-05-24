@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useUser } from "@supabase/auth-helpers-react";
+import React from "react";
 
 function AvatarChecking() {
   const [avatarUrl, setAvatarUrl] = useState(null);

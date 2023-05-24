@@ -1,7 +1,8 @@
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
-import { React, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Link from "next/link";
+import React from "react";
 
 const MyPost = () => {
   const user = useUser();

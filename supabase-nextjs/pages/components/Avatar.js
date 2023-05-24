@@ -62,17 +62,14 @@ export default function Avatar({ uid, url, size, onUpload }) {
           src={avatarUrl}
           alt="Avatar"
           className="max-w-xs mx-auto rounded-full"
-          style={{ height: size, width: size}}
         />
       ) : (
-        <div
-          style={{ height: size, width: size }}
-        />
+        <div />
       )}
       <div style={{ width: size }}>
         <label htmlFor="single">
           <p className=" mt-1 text-center w-full">
-          {uploading ? "Добавление ..." : "Обновить фото"}
+            {uploading ? "Добавление ..." : "Обновить фото"}
           </p>
         </label>
         <input

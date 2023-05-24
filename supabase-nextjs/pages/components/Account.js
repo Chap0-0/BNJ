@@ -6,6 +6,7 @@ import {
 import { useState, useEffect } from "react";
 import Avatar from "./Avatar";
 import Homepage from "@/pages/components/HomePage";
+import React from "react";
 
 export default function Profile() {
   const session = useSession();
@@ -152,6 +153,13 @@ export default function Profile() {
               {loading ? "Обновление ..." : "Обновить"}
             </button>
           </div>
+          {!username ? (
+            <h1 className="text-lg text-red-500 font-bold">
+              Впишите свой никнейм!
+            </h1>
+          ) : (
+            <span></span>
+          )}
         </div>
       )}
     </div>

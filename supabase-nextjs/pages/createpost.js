@@ -1,8 +1,9 @@
-import { React, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useUser, useSession } from "@supabase/auth-helpers-react";
 import Image from "./components/Image";
 import { supabase } from "./api/api";
 import Header from "./components/Header";
+import React from "react";
 
 const Post = () => {
   const session = useSession();

@@ -1,36 +1,10 @@
-import {
-  useSession,
-  useSupabaseClient,
-  useUser,
-} from "@supabase/auth-helpers-react";
-import React, { useState, useEffect } from "react";
-import AvatarChecking from "./AvatarCheck";
+import { useSession } from "@supabase/auth-helpers-react";
+import React from "react";
 import Link from "next/link";
 import Nav from "./Nav";
 
 const Header = () => {
-  const fileRand = `${Math.random()}`;
-  const user = useUser();
   const session = useSession();
-  const supabase = useSupabaseClient();
-  const [username, setUsername] = useState("");
-
-  useEffect(() => {
-    async function getUsername() {
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("username")
-        .eq("id", user.id)
-        .single();
-      if (error) console.log("Error fetching username: ", error);
-      else setUsername(data.username);
-    }
-    if (user) getUsername();
-  }, [user, supabase]);
-  let avatarPNG = null;
-  if (user) {
-    avatarPNG = `https://tcdzmtzjxlljrjivxvmp.supabase.co/storage/v1/object/public/avatars/${user.id}.png?${fileRand}`;
-  }
 
   return (
     <div>

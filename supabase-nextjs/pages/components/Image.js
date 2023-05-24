@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 const { uuid } = require("uuidv4");
 
-export default function ImageUpload({ url, size, onUpload }) {
-  const user = useUser();
+export default function ImageUpload({ url, onUpload }) {
   const supabase = useSupabaseClient();
   const [imageUrl, setImageUrl] = useState(null);
   const [uploading, setUploading] = useState(false);

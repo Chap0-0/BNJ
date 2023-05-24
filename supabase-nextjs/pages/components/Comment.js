@@ -1,5 +1,5 @@
 import { supabase } from "../api/api";
-import { React, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useUser } from "@supabase/auth-helpers-react";
 
 export default function Comment({ postItem }) {

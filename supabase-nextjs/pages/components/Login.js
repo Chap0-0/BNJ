@@ -2,12 +2,14 @@ import { useState } from "react";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import Homepageafter from "./HomePageAfter";
 import Link from "next/link";
-
+import React from "react";
+import { useRouter } from "next/router";
 const Authentification = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const session = useSession();
   const supabase = useSupabaseClient();
+  const router = useRouter();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -18,6 +20,7 @@ const Authentification = () => {
     if (error) {
       alert(error.message);
     }
+    router.push("/");
   };
 
   return (
@@ -43,26 +46,26 @@ const Authentification = () => {
                 <label className="block text-gray-700 text-sm font-bold mb-2">
                   Email:
                 </label>
-                  <input
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    type="text"
-                    name="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="example@mail.ru"
-                  />
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  type="text"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="example@mail.ru"
+                />
               </div>
               <label className="block text-gray-700 text-sm font-bold mb-2">
                 Пароль:
               </label>
-                <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  type="password"
-                  name="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="******"
-                />
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type="password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="******"
+              />
               <div className="flex items-center justify-center">
                 <button
                   className="bg-blue-500 hover:bg-blue-700 w-40 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-6"
@@ -72,7 +75,9 @@ const Authentification = () => {
                 </button>
               </div>
               <Link href="../register">
-                <p className="text-center font-bold text-gray-700 text-[14px] mt-2">Нет аккаунта? Зарегистрироваться.</p>
+                <p className="text-center font-bold text-gray-700 text-[14px] mt-2">
+                  Нет аккаунта? Зарегистрироваться.
+                </p>
               </Link>
             </form>
           </div>

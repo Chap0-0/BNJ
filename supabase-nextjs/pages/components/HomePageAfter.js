@@ -1,6 +1,7 @@
 import Header from "./Header";
 import Post from "./Post";
 import Footer from "./Footer";
+import React from "react";
 
 const Homepageafter = () => {
   return (
