@@ -4,6 +4,7 @@ import Image from "./components/Image";
 import { supabase } from "./api/api";
 import Header from "./components/Header";
 import React from "react";
+import { useRouter } from "next/router";
 
 const Post = () => {
   const session = useSession();
@@ -12,6 +13,7 @@ const Post = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image_url, setImageUrl] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     setLoading(true);
@@ -63,7 +65,6 @@ const Post = () => {
       if (error) {
         throw error;
       }
-
       if (data) {
         setTitle(data.title);
         setDescription(data.description);
@@ -74,6 +75,7 @@ const Post = () => {
     } finally {
       setLoading(false);
     }
+    router.push("/myposts")
   }
 
   return (
