@@ -135,9 +135,10 @@ const Post = () => {
                           {!item.username ? "Noname" : item.username}
                         </p>
                       </div>
-                      <h2 className="text-3xl mt-2 truncate ...">
+                      <h2 className="text-3xl font-bold mt-2 truncate ...">
                         {item.title}
                       </h2>
+                      <p className="text-1xl text-gray-500">{item.tags}</p>
                       <p className="text-1xl text-gray-600">
                         {item.created_at}
                       </p>
@@ -190,16 +191,17 @@ const Post = () => {
                           {!item.username ? "Noname" : item.username}
                         </p>
                       </div>
-                      <h2 className="text-3xl mt-2 truncate ...">
+                      <h2 className="text-3xl font-bold text-gray-800 mt-2 truncate ...">
                         {item.title}
                       </h2>
-                      <p className="text-1xl text-gray-600">
+                      <p className="text-1xl font-bold text-blue-600">{item.tags}</p>
+                      <p className=" text-1xl text-gray-600">
                         {item.created_at}
                       </p>
-
-                      <p className="text-base truncate ...">
+                      <p className="text-2xl truncate ...">
                         {item.description}
                       </p>
+
                     </li>
                   </div>
                 </Link>

@@ -109,13 +109,23 @@ export default function Comment({ postItem }) {
             className=" bg-white border rounded-lg p-2 mb-2 shadow"
           >
             <div className="flex">
-              <img
-                className="w-12 h-12 rounded-full"
-                src={
-                  "https://tcdzmtzjxlljrjivxvmp.supabase.co/storage/v1/object/public/avatars/" +
-                  comment.avatar_url
-                }
-              />
+              {comment.avatar_url ? (
+                <img
+                  className="w-12 h-12 rounded-full"
+                  src={
+                    "https://tcdzmtzjxlljrjivxvmp.supabase.co/storage/v1/object/public/avatars/" +
+                    comment.avatar_url
+                  }
+                />
+              ) : (
+                <img
+                  className="w-12 h-12 rounded-full"
+                  src={
+                    "https://tcdzmtzjxlljrjivxvmp.supabase.co/storage/v1/object/public/avatars/NoImage/NoImageUser.png"
+                  }
+                />
+              )
+              }
               <p className="font-bold my-2 ml-2">{comment.username}</p>
             </div>
             <p className="text-sm text-gray-600">{comment.created_at}</p>

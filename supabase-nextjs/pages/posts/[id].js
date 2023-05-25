@@ -63,9 +63,6 @@ const PostRew = () => {
                 <span></span>
               )}
 
-              <h1 className="text-3xl font-bold break-words">
-                {postItem.title}
-              </h1>
               <div className="mt-4 flex items-center">
                 <img
                   className="w-16 h-16 rounded-full mr-4 object-cover"
@@ -79,9 +76,14 @@ const PostRew = () => {
                   {creator.username}
                 </p>
               </div>
+              <h1 className="text-3xl font-bold break-words text-gray-800 mt-2">
+                {postItem.title}
+              </h1>
               <div className="text-sm">
+              <p className="text-1xl text-blue-600">{postItem.tags}</p>
+
                 <p className="text-1xl text-gray-600">{postItem.created_at}</p>
-                <p className="text-base mt-4 break-words">
+                <p className="text-2xl mt-4 break-words">
                   {postItem.description}
                 </p>
               </div>

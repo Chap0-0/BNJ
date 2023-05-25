@@ -14,6 +14,8 @@ const PostEdit = () => {
   const [description, setDescription] = useState("");
   const [image_url, setImageUrl] = useState("");
   const [user_id, setUserId] = useState(null);
+  const [tagsArray, setTagsArray] = useState([]);
+  const [tags, setTags] = useState("");
 
   useEffect(() => {
     setLoading(true);
@@ -37,6 +39,7 @@ const PostEdit = () => {
         setDescription(data.description);
         setImageUrl(data.image_url);
         setUserId(data.user_id);
+        setTagsArray(data.tags.split(", "));
       }
     } catch (error) {
       console.log(error);
@@ -55,6 +58,7 @@ const PostEdit = () => {
         title,
         description,
         image_url,
+        tags: tagsArray.join(", "),
         created_at: new Date(),
       };
 
@@ -78,6 +82,25 @@ const PostEdit = () => {
       setLoading(false);
     }
   }
+
+  function handleTagSelect(event) {
+    setTags(event.target.value);
+  }
+
+  function handleTagSelect(event) {
+    const selectedTag = event.target.value;
+    if (!tagsArray.includes(selectedTag)) {
+      setTagsArray([...tagsArray, selectedTag]);
+    } else {
+      setTagsArray(tagsArray.filter(tag => tag !== selectedTag));
+    }
+  }
+
+  function handleClearTags() {
+    setTagsArray([]);
+    setTags("");
+  }
+
   return (
     <div>
       <header>
@@ -120,6 +143,39 @@ const PostEdit = () => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               ></textarea>
+
+              <div>
+                <label className="font-bold text-gray-700">Теги:</label>
+                <select
+                  className="border border-gray-300 rounded-lg py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline shadow"
+                  onChange={handleTagSelect}
+                >
+                  <option value="">Выберите тег</option>
+                  <option value="Phyton">Phyton</option>
+                  <option value="JavaScript">JavaScript</option>
+                  <option value="Java">Java</option>
+                  <option value="Ruby">Ruby</option>
+                  <option value="Php">Php</option>
+                  <option value="C#">C#</option>
+                  <option value="C++">C++</option>
+                  <option value="C">C</option>
+                  <option value="Go">Go</option>
+                </select>
+                <input
+                  className="border border-gray-300 rounded-lg py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline shadow"
+                  type="text"
+                  value={tagsArray.join(", ")}
+                  onChange={(e) => setTags(e.target.value)}
+                />
+                <button
+                  className="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-[6px] px-[10px] rounded focus:outline-none focus:shadow-outline"
+                  type="button"
+                  onClick={handleClearTags}
+                >
+                  X
+                </button>
+              </div>
+
               <div className="flex justify-center">
                 <button
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -132,13 +188,7 @@ const PostEdit = () => {
             </form>
           </div>
         ) : (
-          <div className="flex justify-center">
-            <p className="text-center">
-              {user
-                ? "Это пост не ваш, вы не можете его редактировать"
-                : "Вы не авторизованы"}
-            </p>
-          </div>
+          <div></div>
         )}
       </container>
     </div>

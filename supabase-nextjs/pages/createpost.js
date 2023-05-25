@@ -4,16 +4,17 @@ import Image from "./components/Image";
 import { supabase } from "./api/api";
 import Header from "./components/Header";
 import React from "react";
-import { useRouter } from "next/router";
-
+import Router, { useRouter } from "next/router";
 const Post = () => {
+  const router = useRouter();
   const session = useSession();
   const user = useUser();
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image_url, setImageUrl] = useState("");
-  const router = useRouter();
+  const [tagsArray, setTagsArray] = useState([]);
+  const [tags, setTags] = useState("");
 
   useEffect(() => {
     setLoading(true);
@@ -54,9 +55,9 @@ const Post = () => {
         title,
         description,
         image_url,
+        tags: tagsArray.join(", "),
         created_at: new Date(),
       };
-
       let { data, error } = await supabase
         .from("posts")
         .insert(postData)
@@ -65,6 +66,7 @@ const Post = () => {
       if (error) {
         throw error;
       }
+
       if (data) {
         setTitle(data.title);
         setDescription(data.description);
@@ -75,9 +77,27 @@ const Post = () => {
     } finally {
       setLoading(false);
     }
-    router.push("/myposts")
+    router.push("./myposts")
   }
 
+  function handleTagSelect(event) {
+    setTags(event.target.value);
+  }
+
+  function handleTagSelect(event) {
+    const selectedTag = event.target.value;
+    if (!tagsArray.includes(selectedTag)) {
+      setTagsArray([...tagsArray, selectedTag]);
+    } else {
+      setTagsArray(tagsArray.filter(tag => tag !== selectedTag));
+    }
+  }
+  
+
+  function handleClearTags() {
+    setTagsArray([]);
+    setTags("");
+  }
   return (
     <div>
       <header>
@@ -103,7 +123,7 @@ const Post = () => {
             <br />
             <label className="font-bold text-gray-700 mt-24">Название:</label>
             <input
-              className="border border-gray-300 rounded-lg py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline shadow"
+              className="text-3xl font-bold border border-gray-300 rounded-lg py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline shadow"
               id="title"
               type="text"
               value={title}
@@ -120,6 +140,38 @@ const Post = () => {
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
             <br />
+
+            <div>
+              <label className="font-bold text-gray-700">Теги:</label>
+              <select
+                className="border border-gray-300 rounded-lg py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline shadow"
+                onChange={handleTagSelect}
+              >
+                <option value="">Выберите тег</option>
+                <option value="Phyton">Phyton</option>
+                <option value="JavaScript">JavaScript</option>
+                <option value="Java">Java</option>
+                <option value="Ruby">Ruby</option>
+                <option value="Php">Php</option>
+                <option value="C#">C#</option>
+                <option value="C++">C++</option>
+                <option value="C">C</option>
+                <option value="Go">Go</option>
+              </select>
+              <input
+                className="border border-gray-300 rounded-lg py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline shadow"
+                type="text"
+                value={tagsArray.join(", ")}
+                onChange={(e) => setTags(e.target.value)}
+              />
+                 <button
+                className="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-[6px] px-[10px] rounded focus:outline-none focus:shadow-outline"
+                type="button"
+                onClick={handleClearTags}
+              >
+                X
+              </button>
+            </div>
 
             <div className="flex justify-center">
               <button

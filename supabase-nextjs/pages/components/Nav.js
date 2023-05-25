@@ -67,7 +67,7 @@ const Nav = () => {
               {!admin ? (
                 false
               ) : (
-                <Link href="../admin/adminPage">Страница админа</Link>
+                <Link href="../admin/adminPage">Страница администратора</Link>
               )}
             </div>
           </div>

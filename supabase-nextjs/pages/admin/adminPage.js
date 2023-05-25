@@ -114,9 +114,9 @@ const Admin = () => {
                   <td className="border-2 p-2 border-gray-500  ">
                     <Link href={"/posts/" + item.id}>Подробнее о посте...</Link>
                   </td>
-                  <td className="border-2 p-2 border-gray-500 ">
+                  <td className=" text-center border-2 p-2 border-gray-500 ">
                     <button
-                      className="bg-red-500 rounded w-20 hover:bg-red-700 h-8 text-white"
+                      className=" bg-red-500 rounded w-20 hover:bg-red-700 h-8 text-white"
                       onClick={() => handleDelete(item.id)}
                     >
                       Удалить

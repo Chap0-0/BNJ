@@ -13,8 +13,8 @@ const Homepageafter = () => {
             <Post />
           </div>
         </section>
-        <Footer />
       </main>
+        <Footer />
     </div>
   );
 };
