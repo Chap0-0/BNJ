@@ -3,7 +3,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <section className="shadow items-center w-full bg-[#0D47A1] mt-32">
+    <section className="shadow items-center w-full bg-[#0D47A1] mt-[12%]">
       <footer className="flex justify-between p-6">
         <span className="text-slate-100 ">
           © 2023{" "}
